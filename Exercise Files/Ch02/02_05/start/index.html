@@ -17,19 +17,37 @@
 </head>
 <body>
 	<div id="react-container"></div>
+	<div id="react-container1"></div>
 
 	<script type="text/babel">
-
-		const Banner = () => (
-			<div id="fancy">
-				<h1 className="heading">Welcome To React</h1>
-				<p>Have fun!</p>
-			</div>	
-		)
-	
+		class Banner extends React.Component {
+			render() {
+				// console.dir(this);
+				return (
+					<h1>Hi there, {this.props.firstName}</h1>
+				);
+			}
+		}
+		
+		let BannerStateless = (args) => {
+			return (
+				<p>The year of the pig is {args.year}</p>
+			);
+		}
+		// args is an object containing all the passed in props
+		// so, ES6 destructuring can be used as such:
+			// let BannerStateless = ({year}}) => {
+			// 	return (
+			// 		<p>The year of the pig is {year}</p>
+			// 	);
+			// }
 		ReactDOM.render(
-			<Banner />,
+			<Banner firstName='Allen Iverson' age={43} />,
 			document.getElementById('react-container')
+		)
+		ReactDOM.render(
+			<BannerStateless year={2019} />,
+			document.getElementById('react-container1')
 		)
 
 	</script>
