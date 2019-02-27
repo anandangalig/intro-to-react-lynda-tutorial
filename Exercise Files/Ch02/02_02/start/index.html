@@ -4,15 +4,16 @@
     <meta charset="utf-8">
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
     <title>Getting Started with React</title>
 </head>
 <body>
 	<div id="react-container"></div>
 
-	<script type="text/javascript">
-	
+	<script type="text/babel">
+		// type="text/babel" lets browser know to use babel, so we can use JSX and not use React.createElement() calls
 		ReactDOM.render(
-			React.createElement('h1', null, 'Hello World'),
+			<h1>JSX stands for JavaScript XML, and allows combination of html tags in JS code</h1>,
 			document.getElementById('react-container')
 		)
 
