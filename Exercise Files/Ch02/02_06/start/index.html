@@ -20,21 +20,47 @@
 
 	<script type="text/babel">
 
-		class Hello extends React.Component {
+		class Checkbox extends React.Component {			
+			constructor(props) {
+				// super() called with no props does not break this code. Why are we passing props to it? Unclear from tutorial!
+				// no need to pass props to super(), unless we are using this.props in the constructor (otherwise, this.props == undefined)
+				super(props)
+				this.state = {
+					checked: true
+				}
+				this.handleCheck = this.handleCheck.bind(this) // what's happening here? is it being bound to itself?				
+			}
+
+			// setState is a method you can call from your components. There are just two of them: setState() and forceUpdate().
+			// setState() enqueues changes to the component state and tells React that this component and its children need to be re-rendered with the updated state. This is the primary method you use to update the user interface in response to event handlers and server responses.
+			handleCheck() {
+				//this == undefined if this.handleCheck = this.handleCheck.bind(this) is not set in constructor
+				// in other words, above is making this method aware of THIS?
+				this.setState({ // optional object being passed in instead of a function call (state, props) => stateChange
+					checked: !this.state.checked
+				})
+			}
+
 			render() {
+				var msg 
+				if(this.state.checked) {
+					msg = "checked"
+				} else {
+					msg = "not checked"
+				}
 				return (
 					<div>
-						<h1>Hello {this.props.firstName}</h1>
-						<p>Learning React Version {this.props.version}</p>
+						<input type="checkbox" 
+						       onChange={this.handleCheck}
+						       defaultChecked={this.state.checked}/>
+						<p>This box is {msg}</p>
 					</div>
 				)
 			}
 		}
-
-		const HelloStateless = ({firstName}) => <h1>Hello {firstName}</h1>
 	
 		ReactDOM.render(
-			<HelloStateless firstName="Bill" version={16}/>,
+			<Checkbox />,
 			document.getElementById('react-container')
 		)
 
