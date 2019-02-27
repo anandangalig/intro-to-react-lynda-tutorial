@@ -19,19 +19,16 @@
 	<div id="react-container"></div>
 
 	<script type="text/babel">
-
-		class Hello extends React.Component {
-			render() {
-				return (
-					<div id="fancy">
-						<h1 className="heading">Hello World</h1>
-					</div>
-				)
-			}
+		//React lets you define components as classes or functions. Components defined as classes currently provide more features. Here is the ES6 function version:
+		let FunctionAsComponent = () => {
+			return (
+				<div>
+					<h1>Function as a Component</h1>
+				</div>); 
 		}
 	
 		ReactDOM.render(
-			<Hello/>,
+			<FunctionAsComponent/>,
 			document.getElementById('react-container')
 		)
 
