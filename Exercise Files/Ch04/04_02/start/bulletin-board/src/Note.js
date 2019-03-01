@@ -4,6 +4,7 @@ class Note extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+            test: 123,
 			editing: false // setting initial state
 		}
 		this.edit = this.edit.bind(this)
@@ -14,6 +15,7 @@ class Note extends Component {
 	}
 	edit() {
 		this.setState({
+            test: 321,
 			editing: true // re-setting state when edit() is invoked
 		})
 	}
@@ -23,14 +25,14 @@ class Note extends Component {
 	}
 
 	save() {
-		alert('saved!')
+		alert('Input passed via REF: '+this.textInput.value);
 	}
 
 	renderForm() {
 		return (
 			<div className="note">
 				<form>
-					<textarea />
+					<textarea ref={(input) => { this.textInput = input; }}/>
 					<button onClick={this.save}>Save</button>
 				</form>
 			</div>
@@ -48,7 +50,7 @@ class Note extends Component {
 			</div>
 		)
 	}
-	render() {
+	render() {        
 		return this.state.editing ? this.renderForm() : this.renderDisplay() // conditional rendering of markup based on state
 	}
 
