@@ -21,19 +21,29 @@ class Note extends Component {
 	}
 
 	remove() {
-		alert('removing note')
+		alert('removing note');
 	}
 
-	save() {
-		alert('Input passed via REF: '+this.textInput.value);
+    save(event) {
+		event.preventDefault();
+		console.log(this.props);
+		this.props.onChange(this.textInput.value, this.props.index); // onChange is passed in from Board.js, hence its in the props
+		this.setState({
+			editing: false
+		});
 	}
 
 	renderForm() {
 		return (
 			<div className="note">
-				<form>
-					<textarea ref={(input) => { this.textInput = input; }}/>
-					<button onClick={this.save}>Save</button>
+				<form onSubmit={this.save}>
+					<textarea ref={
+                        (input) => {
+							this.textInput = input
+							// grabbing input and setting it to this.textInput
+                        }
+                    }/>
+					<button id="save">Save</button>
 				</form>
 			</div>
 		)
