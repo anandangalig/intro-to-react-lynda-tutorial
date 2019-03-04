@@ -7,40 +7,25 @@ class Board extends React.Component {
         this.update = this.update.bind(this)
         this.eachNote = this.eachNote.bind(this)
         this.remove = this.remove.bind(this)
+        this.add = this.add.bind(this)
+        this.nextId = this.nextId.bind(this)
         this.state = {
-            notes: [
-                {
-                    id: 0,
-                    note: 'pay AT&T'
-                },
-                {
-                    id: 1,
-                    note: 'ship package'
-                },
-                {
-                    id: 2,
-                    note: 'pick up groceries'
-                },
-            ]
+            notes: []
         }
     }
-
-
-
 	update(newText, i) { // these 2 params are passed in from a saved child Note (this.props.onChange(this.textInput.value, this.props.index);)
 		this.setState(
             // this syntax is updating state to a value, which is computed based on previous state (prevState)!
             (prevState) => (
                 {
                     notes: prevState.notes.map(
-                        note => (note.id !== i) ? note : {note: newText} // in other words, if the id of the updated note matches, update the note text with newText, otherwise return the current note as is.
+                        note => (note.id !== i) ? note : {...note, note: newText} // in other words, if the id of the updated note matches, update the note text with newText, otherwise return the current note as is.
                     )
                 }
             )
         )
     }
     remove(id) { // id param is passes from the child component via props onRemove method invocation
-        console.log('remove: ',id);
         this.setState(
             (prevState) => (
                 {
@@ -50,6 +35,19 @@ class Board extends React.Component {
                 }
             )
         )
+    }
+    add(){
+        this.setState(
+            (prevState) => (
+                {
+			        notes: [...prevState.notes, {id: this.nextId(), note: 'New Note'}] // essentially resetting the state with existing state.note + a new note
+                }
+            )
+        )
+    }
+    nextId(){
+        this.uniqueId = this.uniqueId || 0;
+        return this.uniqueId++;
     }
     eachNote(currentNote, index) {
         return(
@@ -63,13 +61,11 @@ class Board extends React.Component {
             // {currentNote.note} between the open/close tags are passed to child as 'children'
         );
     }
-
-
-
     render() {
         return (
             <div className="board">
                 {this.state.notes.map(this.eachNote)}
+                <button onClick={this.add} id='add'>Add</button>
             </div>
         );
     }

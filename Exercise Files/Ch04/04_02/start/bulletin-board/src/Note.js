@@ -12,8 +12,6 @@ class Note extends Component {
 		this.renderForm = this.renderForm.bind(this)
 		this.renderDisplay = this.renderDisplay.bind(this)
 	}
-
-
 	edit() {
 		this.setState({
 			editing: true // re-setting state when edit() is invoked
@@ -31,7 +29,6 @@ class Note extends Component {
 			editing: false
 		});
 	}
-	// ==============================================================================================================================
 	renderForm() {
 		return (
 			<div className="note">
@@ -47,7 +44,6 @@ class Note extends Component {
 			</div>
 		)
 	}
-	
 	renderDisplay() {        
 		return (
 			<div className="note">
@@ -58,10 +54,7 @@ class Note extends Component {
 				</span>
 			</div>
 		)
-	}
-	
-	
-	
+	}	
 	render() {        
 		return this.state.editing ? this.renderForm() : this.renderDisplay(); // conditional rendering of markup based on state
 	}
